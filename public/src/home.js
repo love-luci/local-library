@@ -27,9 +27,34 @@ function getMostCommonGenres(books) {
   return result.slice(0,5);
 }
 
-function getMostPopularBooks(books) {}
+function getMostPopularBooks(books) {
+  return books.map(book => {
+    return {
+      name:book.title,
+      count: book.borrows.length
+    }
+    }).sort((bookA,bookB) => bookB.count - bookA.count).slice(0,5)
+}
 
-function getMostPopularAuthors(books, authors) {}
+
+function getMostPopularAuthors(books, authors) {
+  const popularAuthor = []
+  
+  authors.forEach((author) => {
+    let getAuthor = {
+      name: `${author.name.first} ${author.name.last}`,
+      count:0}
+    
+    books.forEach((book) => {
+      if(book.authorId === author.id) {
+        return getAuthor.count += book.borrows.length
+      }
+    });
+    popularAuthor.push(getAuthor);
+  });
+    return popularAuthor.sort((bookA,bookB) => bookB.count - bookA.count).slice(0,5);
+}
+
 
 module.exports = {
   getTotalBooksCount,
