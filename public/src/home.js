@@ -10,7 +10,7 @@ function getBooksBorrowedCount(books) {
   let result = books.filter((book) => book.borrows[0].returned === false);
   return result.length;
 }
-
+//try using a helper function to help get the top five items
 function getMostCommonGenres(books) {
   //use .slice() and .sort()
   const result = [];

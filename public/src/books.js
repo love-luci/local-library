@@ -15,8 +15,15 @@ function partitionBooksByBorrowedStatus(books) {
   return borrowedStatus;
 }
 
-function getBorrowersForBook(book, accounts) {
-  
+function getBorrowersForBook(book, accounts) { 
+
+  let result = book.borrows.map((borrow) =>  {
+    const account = accounts.find((account) => account.id === borrow.id);
+     account.returned = borrow.returned;
+     return account;
+  });
+
+  return result.slice(0,10);
 }
 
 module.exports = {
