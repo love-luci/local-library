@@ -23,17 +23,17 @@ function getMostCommonGenres(books) {
       genreExists.count += 1;
     }
   })
-  result.sort((genreA,genreB) => genreA.count > genreB.count ? -1: 1);
-  return result.slice(0,5);
+  return sortAndSlice(result);
 }
 
 function getMostPopularBooks(books) {
-  return books.map(book => {
+  const result = books.map(book => {
     return {
       name:book.title,
       count: book.borrows.length
     }
-    }).sort((bookA,bookB) => bookB.count - bookA.count).slice(0,5)
+    });
+    return sortAndSlice(result);
 }
 
 
@@ -52,9 +52,12 @@ function getMostPopularAuthors(books, authors) {
     });
     popularAuthor.push(getAuthor);
   });
-    return popularAuthor.sort((bookA,bookB) => bookB.count - bookA.count).slice(0,5);
+    return sortAndSlice(popularAuthor);
 }
 
+function sortAndSlice(arr) {
+  return arr.sort((itemA,itemB) => itemB.count - itemA.count).slice(0,5);
+}
 
 module.exports = {
   getTotalBooksCount,
